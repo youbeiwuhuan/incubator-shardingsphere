@@ -17,26 +17,30 @@
 
 grammar DCLStatement;
 
-import Symbol, Keyword, Literals, BaseRule;
+import Symbol, Keyword, MySQLKeyword, Literals, BaseRule;
 
 grant
-    : GRANT (grantProxyClause_ | grantPrivilegeClause_ | grantRoleClause_)
-    ;
-
-grantProxyClause_
-    : PROXY ON
-    ;
-
-grantPrivilegeClause_
-    : privileges_ ON onObjectClause_
-    ;
-
-grantRoleClause_
-    : ignoredIdentifiers_
+    : GRANT (proxyClause_ | privilegeClause_ | roleClause_)
     ;
 
 revoke
-    : REVOKE (ALL PRIVILEGES? COMMA_ GRANT OPTION | PROXY ON | privileges_ ON onObjectClause_ | ignoredIdentifiers_)
+    : REVOKE (proxyClause_ | privilegeClause_ | allClause_ | roleClause_)
+    ;  
+
+proxyClause_
+    : PROXY ON
+    ;
+
+privilegeClause_
+    : privileges_ ON onObjectClause_
+    ;
+
+roleClause_
+    : ignoredIdentifiers_
+    ;
+
+allClause_
+    : ALL PRIVILEGES? COMMA_ GRANT OPTION
     ;
 
 privileges_

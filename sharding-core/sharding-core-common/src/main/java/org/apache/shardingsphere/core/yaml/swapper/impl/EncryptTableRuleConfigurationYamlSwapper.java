@@ -17,30 +17,38 @@
 
 package org.apache.shardingsphere.core.yaml.swapper.impl;
 
-import org.apache.shardingsphere.api.config.encryptor.EncryptTableRuleConfiguration;
+import org.apache.shardingsphere.api.config.encrypt.EncryptColumnRuleConfiguration;
+import org.apache.shardingsphere.api.config.encrypt.EncryptTableRuleConfiguration;
+import org.apache.shardingsphere.core.yaml.config.encrypt.YamlEncryptColumnRuleConfiguration;
 import org.apache.shardingsphere.core.yaml.config.encrypt.YamlEncryptTableRuleConfiguration;
 import org.apache.shardingsphere.core.yaml.swapper.YamlSwapper;
 
+import java.util.Map.Entry;
+
 /**
- * Encrypt table rule configuration yaml swapper.
+ * Encrypt table configuration YAML swapper.
  *
  * @author panjuan
  */
 public final class EncryptTableRuleConfigurationYamlSwapper implements YamlSwapper<YamlEncryptTableRuleConfiguration, EncryptTableRuleConfiguration> {
     
+    private final EncryptColumnRuleConfigurationYamlSwapper columnRuleConfigurationYamlSwapper = new EncryptColumnRuleConfigurationYamlSwapper();
+    
     @Override
-    public YamlEncryptTableRuleConfiguration swap(final EncryptTableRuleConfiguration encryptTableRuleConfiguration) {
+    public YamlEncryptTableRuleConfiguration swap(final EncryptTableRuleConfiguration data) {
         YamlEncryptTableRuleConfiguration result = new YamlEncryptTableRuleConfiguration();
-        result.setTable(encryptTableRuleConfiguration.getTable());
-        result.setEncryptor(new EncryptorConfigurationYamlSwapper().swap(encryptTableRuleConfiguration.getEncryptorConfig()));
+        for (Entry<String, EncryptColumnRuleConfiguration> entry : data.getColumns().entrySet()) {
+            result.getColumns().put(entry.getKey(), columnRuleConfigurationYamlSwapper.swap(entry.getValue()));
+        }
         return result;
     }
     
     @Override
-    public EncryptTableRuleConfiguration swap(final YamlEncryptTableRuleConfiguration yamlEncryptTableRuleConfiguration) {
+    public EncryptTableRuleConfiguration swap(final YamlEncryptTableRuleConfiguration yamlConfiguration) {
         EncryptTableRuleConfiguration result = new EncryptTableRuleConfiguration();
-        result.setTable(yamlEncryptTableRuleConfiguration.getTable());
-        result.setEncryptorConfig(new EncryptorConfigurationYamlSwapper().swap(yamlEncryptTableRuleConfiguration.getEncryptor()));
+        for (Entry<String, YamlEncryptColumnRuleConfiguration> entry : yamlConfiguration.getColumns().entrySet()) {
+            result.getColumns().put(entry.getKey(), columnRuleConfigurationYamlSwapper.swap(entry.getValue()));
+        }
         return result;
     }
 }

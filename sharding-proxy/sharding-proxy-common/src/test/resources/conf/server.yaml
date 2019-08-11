@@ -23,8 +23,10 @@ orchestration:
     namespace: orchestration
 
 authentication:
-  username: root
-  password: root
+  users:
+    root:
+      password: root
+      authorizedSchemas: sharding_db,master_slave_db
 
 props:
   max.connections.size.per.query: 1

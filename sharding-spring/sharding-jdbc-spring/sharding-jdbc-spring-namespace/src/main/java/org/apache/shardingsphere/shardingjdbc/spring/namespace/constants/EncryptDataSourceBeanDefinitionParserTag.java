@@ -30,19 +30,33 @@ public final class EncryptDataSourceBeanDefinitionParserTag {
     
     public static final String ROOT_TAG = "data-source";
     
-    public static final String ENCRYPT_RULE_CONFIG_TAG = "encrypt-rule";
-    
     public static final String DATA_SOURCE_NAME_TAG = "data-source-name";
     
-    public static final String TABLE_RULES_TAG = "table-rules";
+    public static final String ENCRYPT_RULE_TAG = "encrypt-rule";
     
-    public static final String TABLE_RULE_TAG = "table-rule";
+    public static final String TABLES_CONFIG_TAG = "tables";
     
-    public static final String ENCRYPT_TABLE_ATTRIBUTE = "encrypt-table";
+    public static final String TABLE_CONFIG_TAG = "table";
     
-    public static final String DEFAULT_ENCRYPTOR_REF_ATTRIBUTE = "default-encryptor-ref";
+    public static final String COLUMN_CONFIG_TAG = "column";
     
-    public static final String ENCRYPTOR_REF_ATTRIBUTE = "encryptor-ref";
+    public static final String COLUMN_LOGIC_COLUMN_ATTRIBUTE = "logic-column";
     
-    public static final String ENCRYPTOR_REF_TAG = "encryptor";
+    public static final String COLUMN_PLAIN_COLUMN_ATTRIBUTE = "plain-column";
+    
+    public static final String COLUMN_CIPHER_COLUMN_ATTRIBUTE = "cipher-column";
+    
+    public static final String COLUMN_ASSISTED_QUERY_COLUMN_ATTRIBUTE = "assisted-query-column";
+    
+    public static final String COLUMN_ENCRYPTOR_REF_ATTRIBUTE = "encryptor-ref";
+    
+    public static final String ENCRYPTORS_CONFIG_TAG = "encryptors";
+    
+    public static final String ENCRYPTOR_CONFIG_TAG = "encryptor";
+    
+    public static final String ENCRYPTOR_TYPE_ATTRIBUTE = "type";
+    
+    public static final String ENCRYPTOR_PROPERTY_REF_ATTRIBUTE = "props-ref";
+    
+    public static final String PROPS_TAG = "props";
 }
